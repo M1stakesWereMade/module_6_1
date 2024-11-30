@@ -10,29 +10,43 @@ class Plant:
         self.name = name
 
 class Mammal(Animal):
-    def __init__(self, name):
-        super().__init__(name)
-
     def eat(self, food):
-        if isinstance(food, Plant) and food.edible:
-            print(f"{self.name} съел {food.name}")
-            self.fed = True
-        else:
-            print(f"{self.name} не стал есть {food.name}")
-            self.alive = False
+        """Млекопитающее ест растение"""
+        if isinstance(food, Plant):
+            if food.edible:
+                print(f"{self.name} съел {food.name}")
+                self.fed = True
+            else:
+                print(f"{self.name} не стал есть {food.name}")
+                self.alive = False
 
-class Predator(Mammal):
-    def __init__(self, name):
-        super().__init__(name)
+class Predator(Animal):
+    def eat(self, food):
+        """Хищник ест растение"""
+        if isinstance(food, Plant):
+            if food.edible:
+                print(f"{self.name} съел {food.name}")
+                self.fed = True
+            else:
+                print(f"{self.name} не стал есть {food.name}")
+                self.alive = False
 
 class Flower(Plant):
     def __init__(self, name):
         super().__init__(name)
+        self.edible = False
 
 class Fruit(Plant):
     def __init__(self, name):
         super().__init__(name)
         self.edible = True
+
+
+rose = Flower("Роза")
+apple = Fruit("Яблоко")
+
+lion = Predator("Лев")
+elephant = Mammal("Слон")
 
 a1 = Predator('Волк с Уолл-Стрит')
 a2 = Mammal('Хатико')
@@ -43,7 +57,10 @@ print(a1.name)
 print(p1.name)
 print(a1.alive)
 print(a2.fed)
+
 a1.eat(p1)
+
 a2.eat(p2)
+
 print(a1.alive)
 print(a2.fed)
